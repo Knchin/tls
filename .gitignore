@@ -63,6 +63,9 @@ Thumbs.db
 /supabase/.branches
 /supabase/.storage
 
+# Local temp credentials
+/mail
+
 # IDE
 .vscode/*
 !.vscode/extensions.json
