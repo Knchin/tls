@@ -149,6 +149,7 @@ jobs:
             --var "SUPABASE_JWT_KEY:$SUPABASE_JWT_KEY" \
             --var "SUPABASE_PROJECT_ID:$SUPABASE_PROJECT_ID"
         env:
+          OPEN_NEXT_DEPLOY: "false"
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_PROJECT_NAME: ${{ vars.CLOUDFLARE_PROJECT_NAME }}
