@@ -56,7 +56,7 @@ describe.skipIf(!configured)("Supabase integration", () => {
     );
   });
 
-  it("catalogue is public (readable by anon)", async () => {
+  it("catalogue requires authentication (not readable by anon)", async () => {
     const publicClient = createClient(url!, anonKey!, {
       auth: { autoRefreshToken: false, persistSession: false },
     });
@@ -67,7 +67,7 @@ describe.skipIf(!configured)("Supabase integration", () => {
       .limit(10);
 
     expect(error).toBeNull();
-    expect((data ?? []).length).toBeGreaterThan(0);
+    expect(data ?? []).toHaveLength(0);
   });
 
   it("app_config contains monitoring limits", async () => {
@@ -148,6 +148,14 @@ describe.skipIf(!configured)("Supabase integration", () => {
     expect(own).toHaveLength(1);
     expect(own![0].centre).toBe("TUNIS");
     expect(own![0].status).toBe("ACTIVE");
+
+    const { data: catalogue, error: catalogueError } = await userClient
+      .from("destinations")
+      .select("code");
+    expect(catalogueError).toBeNull();
+    expect((catalogue ?? []).map((d) => d.code)).toEqual(
+      expect.arrayContaining(["FR", "DE", "BE"])
+    );
   });
 
   it("a user cannot read another user's monitoring request", async () => {

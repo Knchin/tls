@@ -63,6 +63,10 @@ Thumbs.db
 /supabase/.branches
 /supabase/.storage
 
+# OpenNext / Cloudflare build output
+/.open-next/
+/.wrangler/
+
 # Local temp credentials
 /mail
 
