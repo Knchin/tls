@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 4%;
+    --foreground: 210 40% 98%;
+    --card: 217 38% 8%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 5%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 33% 15%;
+    --secondary-foreground: 210 40% 96%;
+    --muted: 217 33% 12%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 63% 45%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 217 91% 60%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    background: rgba(59, 130, 246, 0.35);
+    color: #f8fafc;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #020617;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.25);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(59, 130, 246, 0.45);
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(96, 165, 250, 0.15);
+    box-shadow: 0 0 30px rgba(37, 99, 235, 0.08);
+  }
+
+  .glass-strong {
+    background: rgba(15, 23, 42, 0.78);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    box-shadow:
+      0 0 40px rgba(37, 99, 235, 0.14),
+      0 8px 40px rgba(0, 0, 0, 0.45);
+  }
+
+  .ambient-grid {
+    background-image:
+      linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 40%, transparent 100%);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(115deg, #60a5fa 0%, #38bdf8 45%, #22d3ee 100%);
+  }
+
+  .border-gradient {
+    position: relative;
+    background:
+      linear-gradient(#0b1220, #0b1220) padding-box,
+      linear-gradient(140deg, rgba(96, 165, 250, 0.5), rgba(34, 211, 238, 0.12) 40%, rgba(96, 165, 250, 0.08)) border-box;
+    border: 1px solid transparent;
+  }
+
+  .glow-ring {
+    box-shadow:
+      0 0 0 1px rgba(96, 165, 250, 0.25),
+      0 0 24px rgba(37, 99, 235, 0.28),
+      inset 0 0 18px rgba(37, 99, 235, 0.08);
+  }
+
+  .radar-dot {
+    position: relative;
+  }
+  .radar-dot::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 9999px;
+    border: 1.5px solid rgba(34, 211, 238, 0.7);
+    animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  .radar-dot::after {
+    content: "";
+    position: absolute;
+    inset: -12px;
+    border-radius: 9999px;
+    border: 1px solid rgba(34, 211, 238, 0.35);
+    animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite 0.6s;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden bg-slate-800/60;
+  }
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(148, 163, 184, 0.1),
+      transparent
+    );
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
