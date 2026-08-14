@@ -19,6 +19,8 @@ jobs:
     name: Lint & typecheck
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      SONAR_ENABLED: ${{ secrets.SONAR_TOKEN != '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,7 +43,7 @@ jobs:
         run: npm run typecheck
 
       - name: SonarCloud scan (only when SONAR_TOKEN is configured)
-        if: ${{ secrets.SONAR_TOKEN != '' }}
+        if: env.SONAR_ENABLED == 'true'
         uses: SonarSource/sonarcloud-github-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
