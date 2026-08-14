@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
     inputs:
       environment:
@@ -68,7 +68,7 @@ jobs:
           SMTP_FROM: ${{ secrets.SMTP_FROM }}
 
       - name: Apply database migrations to Supabase
-        if: github.event.inputs.environment == 'production' || github.ref == 'refs/heads/main'
+        if: github.event.inputs.environment == 'production' || github.ref == 'refs/heads/master'
         run: |
           echo "Applying migrations (requires supabase CLI + linked project)"
           npx supabase db push --linked
